@@ -52,11 +52,8 @@ const userSchema = mongoose.Schema({
 		required: true,
 	},
 	role: {
-		type: String,
-		enum: {
-			values: ['rol1', 'rol2', 'rol3'], //TODO: definir roles
-			message: '{VALUE} no es un rol valido',
-		},
+		type: Schema.Types.ObjectId,
+		ref: 'category',
 		required: true,
 	},
 });
