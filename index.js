@@ -8,7 +8,7 @@ import Connection from './database/db.js';
 import Router from './routes/route.js';
 
 
-dotenv.config();
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 const app = express();
 
