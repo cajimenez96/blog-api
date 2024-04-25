@@ -7,7 +7,7 @@
   "scripts": {
     "start": "set NODE_ENV=production&& nodemon index.js",
     "dev": "set NODE_ENV=local&& nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "set NODE_ENV=testing&& nodemon index.js",
     "lint": "eslint ."
   },
   "repository": {
