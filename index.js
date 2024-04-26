@@ -8,7 +8,7 @@ import Connection from './database/db.js';
 import Router from './routes/route.js';
 
 
-dotenv.config();
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 const app = express();
 
@@ -18,10 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', Router);
 
 
-const PORT = 8000;
-const username = process.env.DB_USERNAME;
-const password = process.env.DB_PASSWORD;
+const PORT = process.env.PORT;
 
-Connection(username, password);
+Connection(process.env.CONNECTION_STRING);
 
 app.listen(PORT, () => console.log(`Server is running successfully on PORT ${PORT}`));
