@@ -6,6 +6,9 @@ import {
 	PASSWORD_REGEX,
 	ID_REGEX,
 } from '../utils/constants.js';
+import {
+	userResponseMessages
+} from '../utils/response-messages/user-messages.js'
 
 
 export const singupUser = async (request, response) => {
@@ -23,10 +26,10 @@ export const singupUser = async (request, response) => {
 		const missingFields = requiredFields.filter((field) => !request.body[field]);
 		if (missingFields.length > 0) {
 			return response
-				.status(400)
+				.status(userResponseMessages.missingFields.statusCode)
 				.json({
-					statusCode: 400,
-					message: `Campos obligatorios faltantes: ${missingFields.join(', ')}`
+					statusCode: userResponseMessages.missingFields.statusCode,
+					message: userResponseMessages.missingFields.message + missingFields.join(', ')
 				});
 		};
 		const {
@@ -44,27 +47,26 @@ export const singupUser = async (request, response) => {
 		const existingUser = await findUserService({ email: email });
 		if (existingUser) {
 			return response
-				.status(400)
+				.status(userResponseMessages.emailAlreadyInUse.statusCode)
 				.json({
-					statusCode: 400,
-					message: 'Correo electrónico ya en uso',
-					email: email,
+					statusCode: userResponseMessages.emailAlreadyInUse.statusCode,
+					message: userResponseMessages.emailAlreadyInUse.message,
 				});
 		}
 		if (!PASSWORD_REGEX.test(password)) {
 			return response
-				.status(400)
+				.status(userResponseMessages.invalidPassword.statusCode)
 				.json({
-					statusCode: 400,
-					message: 'La contraseña debe tener al menos 4 caracteres, un número, un caracter especial y una letra mayúscula',
+					statusCode: userResponseMessages.invalidPassword.statusCode,
+					message: userResponseMessages.invalidPassword.message,
 				});
 		}
 		if (!ID_REGEX.test(role)) {
 			return response
-				.status(400)
+				.status(userResponseMessages.invalidField.statusCode)
 				.json({
-					statusCode: 400,
-					message: 'Campo inválido: role',
+					statusCode: userResponseMessages.invalidField.statusCode,
+					message: userResponseMessages.invalidField.message + Object.keys(role),
 				});
 		}
 		const newUser = await createUserService({
@@ -80,18 +82,18 @@ export const singupUser = async (request, response) => {
 			role,
 		});
 		return response
-			.status(201)
+			.status(userResponseMessages.userSignedUp.statusCode)
 			.json({
-				statusCode: 201,
-				message: 'Usuario registrado',
+				statusCode: userResponseMessages.userSignedUp.statusCode,
+				message: userResponseMessages.userSignedUp.message,
 				user: newUser.email,
 			});
 	} catch (error) {
 		return response
-			.status(500)
+			.status(userResponseMessages.signUpError.statusCode)
 			.json({
-				statusCode: 500,
-				message: 'Error al registrar usuario',
+				statusCode: userResponseMessages.signUpError.statusCode,
+				message: userResponseMessages.signUpError.message,
 				error: error.message,
 			});
 	}
