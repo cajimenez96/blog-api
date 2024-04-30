@@ -4,7 +4,7 @@ import {
 } from '../service/user-service.js';
 import {
 	PASSWORD_REGEX,
-	ID_REGEX,
+	USER_ROLES,
 } from '../utils/constants.js';
 import {
 	userResponseMessages
@@ -29,7 +29,7 @@ export const singupUser = async (request, response) => {
 				.status(userResponseMessages.missingFields.statusCode)
 				.json({
 					statusCode: userResponseMessages.missingFields.statusCode,
-					message: userResponseMessages.missingFields.message + missingFields.join(', ')
+					message: userResponseMessages.missingFields.message + missingFields.join(', '),
 				});
 		};
 		const {
@@ -61,12 +61,12 @@ export const singupUser = async (request, response) => {
 					message: userResponseMessages.invalidPassword.message,
 				});
 		}
-		if (!ID_REGEX.test(role)) {
+		if (!USER_ROLES.includes(role)) {
 			return response
-				.status(userResponseMessages.invalidField.statusCode)
+				.status(userResponseMessages.invalidRole.statusCode)
 				.json({
-					statusCode: userResponseMessages.invalidField.statusCode,
-					message: userResponseMessages.invalidField.message + Object.keys(role),
+					statusCode: userResponseMessages.invalidRole.statusCode,
+					message: userResponseMessages.invalidRole.message,
 				});
 		}
 		const newUser = await createUserService({
