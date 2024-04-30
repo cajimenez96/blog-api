@@ -14,7 +14,7 @@ export const createUserService = async ({
   country,
   birthday,
 }) => {
-  const salt = process.env.SALT_ROUNDS;
+  const salt = parseInt(process.env.SALT_ROUNDS);
   const hashedPassword = await bcrypt.hash(password, salt);
   const user = await userModel.create({
     name,
