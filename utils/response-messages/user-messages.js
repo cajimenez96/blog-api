@@ -11,9 +11,9 @@ export const userResponseMessages = {
     statusCode: 400,
     message: 'Correo electrónico ya en uso',
   },
-  invalidField: {
+  invalidRole: {
     statusCode: 400,
-    message: 'Campo no válido: '
+    message: 'Rol de usuario no válido'
   },
   signUpError: {
     statusCode: 500,
