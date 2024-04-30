@@ -52,9 +52,11 @@ const userSchema = new Schema({
 		required: true,
 	},
 	role: {
-		type: Schema.Types.ObjectId,
-		ref: 'category',
-		required: true,
+		type: String,
+		enum: {
+			values: ['0', '1', '2'],
+			message: '{VALUE} no es un rol válido',
+		},
 	},
 });
 
