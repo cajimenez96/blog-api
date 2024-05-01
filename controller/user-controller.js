@@ -123,12 +123,12 @@ export const loginUser = async (req, res) => {
 			});
 		}
 		const userData = {
-			UserId: loguedUser.userFounded._id,
+			UserId: loguedUser.foundUser._id,
 			Token: loguedUser.accessToken,
-			Username: loguedUser.userFounded.userName,
-			Email: loguedUser.userFounded.email,
-			LastName: loguedUser.userFounded.lastName,
-			UserType: loguedUser.userFounded.role,
+			Username: loguedUser.foundUser.userName,
+			Email: loguedUser.foundUser.email,
+			LastName: loguedUser.foundUser.lastName,
+			UserType: loguedUser.foundUser.role,
 		};
 
 		return res.status(userResponseMessages.userLogin.statusCode).json({

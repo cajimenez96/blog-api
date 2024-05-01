@@ -35,23 +35,23 @@ export const loginUserService = async ({
   email,
   password
 }) => {
-  let userFounded;
-  if (email) userFounded = await userModel.findOne({ email })
+  let foundUser;
+  if (email) foundUser = await userModel.findOne({ email })
   
-  if (!userFounded) {
+  if (!foundUser) {
     return null; 
   }
-  const passwordMatch = await bcrypt.compare(password, userFounded.password);
+  const passwordMatch = await bcrypt.compare(password, foundUser.password);
   if (!passwordMatch) {
     return null; 
   }
   const payload = {
-    userFounded,
+    foundUser,
   }
   const accessToken = await jwt.sign(
     payload,
     process.env.ACCESS_SECRET_KEY,
     { expiresIn: '15m' }
   )
-  return { accessToken, userFounded }
+  return { accessToken, foundUser }
 }
