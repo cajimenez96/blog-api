@@ -37,13 +37,13 @@ export const loginUserService = async ({
 }) => {
   let userFounded;
   if (email) userFounded = await userModel.findOne({ email })
-  // Validate user existence without throwing an error (for internal usage)
+  
   if (!userFounded) {
-    return null; // Indicate user not found
+    return null; 
   }
   const passwordMatch = await bcrypt.compare(password, userFounded.password);
   if (!passwordMatch) {
-    return null; // Indicate invalid password
+    return null; 
   }
   const payload = {
     userFounded,
