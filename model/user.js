@@ -57,6 +57,7 @@ const userSchema = new Schema({
 			values: ['0', '1', '2'],
 			message: '{VALUE} no es un rol válido',
 		},
+		required: true,
 	},
 });
 
