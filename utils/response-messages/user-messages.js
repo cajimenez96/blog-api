@@ -23,4 +23,16 @@ export const userResponseMessages = {
     statusCode: 201,
     message: 'Usuario registrado',
   },
+  userLogin: {
+    statusCode: 201,
+    message: 'Usuario Logueado',
+  },
+  loginError: {
+    statusCode: 500,
+    message: 'Error al iniciar sesion',
+  },
+  loginInvalid: {
+    statusCode: 400,
+    message: 'Correo o contraseña no válidos'
+  },
 };
